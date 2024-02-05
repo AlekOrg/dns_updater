@@ -1,0 +1,14 @@
+[Unit]
+Description=GoDaddy DNS updater service
+StartLimitIntervalSec=0
+After=network.target
+
+[Service]
+Type=Simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/bin/sh /home/alex/godaddy_dns_updater/start.sh
+
+[Install]
+WantedBy=multi-user.target
