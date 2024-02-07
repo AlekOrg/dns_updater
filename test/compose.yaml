@@ -8,17 +8,17 @@ services:
       dockerfile_inline: |
         FROM dns_updater:latest
         COPY ./rootCA.pem /usr/local/lib/python3.12/site-packages/certifi/cacert.pem
-        
+    depends_on:
+      - mock_server
 
   mock_server:
     build: mock_server/
     ports:
-      - 8011:443
-      - 8010:80
+      - 8443:443
+      - 8080:80
     networks:
       default:
         aliases:
           - api.my-ip.io
           - api.godaddy.com
-    depends_on: 
-      - dns_updater
+
