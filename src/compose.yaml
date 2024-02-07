@@ -1,0 +1,6 @@
+services:
+  dns_update:
+    build: 
+      dockerfile: Dockerfile
+    image: dns_updater:latest
+      
