@@ -1,6 +1,7 @@
 version: "2"
 services:
   dns_updater:
+    attach: false
     environment:
       - GO_DADDY_API_KEY=test token
     build:

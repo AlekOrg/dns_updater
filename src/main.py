@@ -5,6 +5,8 @@ import subprocess
 import time
 import os
 
+GO_DADDY_API_KEY = "GO_DADDY_API_KEY"
+
 logging.basicConfig(level="INFO",
                     format='%(asctime)s %(levelname)-4s %(message)s')
 
@@ -24,7 +26,7 @@ def get_external_ip():
 def get_ip_from_my_ip_io():
     response = requests.get("https://api.my-ip.io/v2/ip.txt")
     if (response.status_code == 200):
-        return str(response.content).split("\n")[0]
+        return str(response.content, "utf-8").splitlines()[0]
     else:
         print(response.status_code)
         raise Exception("Non 200 status from my-ip.io: %i".format(response.status_code))
@@ -48,13 +50,17 @@ def update_dns_record(ip_address):
     logging.info("Updating DNS record")
     url = "https://api.godaddy.com/v1/domains/organiccode.net/records/A/%40"
     headers = {"accept": "application/json", "Content-Type": "application/json",
-               "Authorization": "sso-key " + os.environ['GO_DADDY_API_KEY']}
+               "Authorization": "sso-key " + os.environ[GO_DADDY_API_KEY]}
     body = json.dumps([{"data": ip_address, "ttl": 1800}], indent=0)
     response = requests.put(url, data=body, headers=headers)
     logging.info("PUT request to godaddy returned with status {}".format(response.status_code))
 
 
 if __name__ == "__main__":
+
+    if os.environ[GO_DADDY_API_KEY] is None:
+        print("GoDaddy Auth Key is missing")
+        exit(1)
 
     IP_FILE = "./current_ip.txt"
 
