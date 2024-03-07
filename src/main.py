@@ -30,8 +30,6 @@ def get_ip_from_my_ip_io():
     else:
         print(response.status_code)
         raise Exception("Non 200 status from my-ip.io: %i".format(response.status_code))
-    
-
 
 def get_ip_from_file(file_name):
     try:
