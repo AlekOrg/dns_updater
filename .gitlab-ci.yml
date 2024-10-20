@@ -16,17 +16,19 @@ variables:
 compose:
   stage: build
   script:
+  - cd src
   - docker compose build
 
 
 test:
   stage: test
   script:
-  - ./test.sh
+  - ./test/test.sh
 
 release:
   stage: deploy
   script:
+  - cd src
   - docker image tag dns_updater:latest gitlab-registry/dns_updater:latest
   - docker push gitlab-registry/dns_updater:latest 
 
