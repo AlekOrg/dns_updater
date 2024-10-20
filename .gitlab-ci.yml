@@ -34,6 +34,8 @@ release:
 
 deploy:
   stage: deploy
+  needs:
+    - release
   image:
     name: bitnami/kubectl:latest
     entrypoint: ['']
