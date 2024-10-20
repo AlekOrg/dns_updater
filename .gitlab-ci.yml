@@ -4,8 +4,8 @@ default:
     - docker info
 
 
-biuld:
-  stage: compose
+compose:
+  stage: build
   script:
   - docker compose build
 
