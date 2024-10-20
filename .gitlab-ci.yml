@@ -1,5 +1,8 @@
 default:
   image: docker:24.0.5
+  services:
+    - docker:dind
+
   before_script:
     - docker info
 
