@@ -16,12 +16,13 @@ test:
   - ./test.sh
 
 release:
-  stage: release
+  stage: deploy
   script:
   - docker image tag dns_updater:latest gitlab-registry/dns_updater:latest
   - docker push gitlab-registry/dns_updater:latest 
 
 deploy:
+  stage: deploy
   image:
     name: bitnami/kubectl:latest
     entrypoint: ['']
