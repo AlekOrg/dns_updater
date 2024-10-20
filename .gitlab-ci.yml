@@ -27,10 +27,12 @@ test:
 
 release:
   stage: deploy
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   script:
-  - cd src
-  - docker image tag dns_updater:latest gitlab-registry/dns_updater:latest
-  - docker push gitlab-registry/dns_updater:latest 
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
 
 deploy:
   stage: deploy
