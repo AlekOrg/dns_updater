@@ -31,7 +31,7 @@ release:
     - echo $IMAGE_TAG
     - echo $
     - cd src
-    - "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD ${CI_REGISTRY}:443"
+    - "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD https://${CI_REGISTRY}"
     - docker compose build
     - docker image tag dns_updater:latest $IMAGE_TAG
     - docker push $IMAGE_TAG
