@@ -25,7 +25,7 @@ test:
 release:
   stage: release
   variables:
-    IMAGE_TAG: ${CI_REGISTRY_IMAGE}/image:latest
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}/image:latest-amd64
   
   script:
     - echo $IMAGE_TAG
