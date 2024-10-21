@@ -25,7 +25,7 @@ test:
 release:
   stage: release
   variables:
-    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:latest
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}/image:latest
   before_script:
     - echo "Docker registry url is $CI_REGISTRY"
     - echo "Docker registry username is $CI_REGISTRY_USER"
