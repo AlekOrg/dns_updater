@@ -24,7 +24,7 @@ spec:
         - name: regcred
       containers:
       - name: dns-updater
-        image: registry.organiccode.net/dns_updater:latest
+        image: registry.organiccode.net/alex/godaddy-dns-pdater:latest
         env: 
         - name: GO_DADDY_API_KEY
           valueFrom:

@@ -26,7 +26,6 @@ release:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
 
-  
   script:
     - echo $IMAGE_TAG
     - echo $
