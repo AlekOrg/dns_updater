@@ -32,4 +32,4 @@ spec:
               name: godaddy-api-secret
               key: apiToken
               optional: false
-        
+            

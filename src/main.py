@@ -1,27 +1,15 @@
 import requests
 import json
 import logging
-import subprocess
 import time
 import os
+from stun_info import get_external_ip
 
 GO_DADDY_API_KEY = "GO_DADDY_API_KEY"
 
 logging.basicConfig(level="INFO",
                     format='%(asctime)s %(levelname)-4s %(message)s')
 
-def get_external_ip():
-    ssh_command = "ssh admin@192.168.1.1 -i /home/alex/.ssh/id_rsa /sbin/ifconfig eth0 | sed -n -E 's/^.*inet addr:([0-9\\.]+).*$/\\1/p'"
-
-    ssh_proc = subprocess.Popen(ssh_command,
-                                shell=True,
-                                stderr=subprocess.PIPE,
-                                stdout=subprocess.PIPE)
-    errs = ssh_proc.stderr.readlines()
-    if len(errs) > 0:
-        logging.error("Error during ssh call: \n {}".format(errs))
-        raise Exception("Something went wrong during ssh")
-    return ssh_proc.stdout.read().decode("utf-8").strip()
 
 def get_ip_from_my_ip_io():
     response = requests.get("https://api.my-ip.io/v2/ip.txt")
@@ -67,7 +55,7 @@ if __name__ == "__main__":
     while True:
 
         try:
-            new_ip = get_ip_from_my_ip_io()
+            new_ip = get_external_ip()
 
             if new_ip != current_ip:
                 update_dns_record(new_ip)

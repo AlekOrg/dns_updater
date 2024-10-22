@@ -1,0 +1,27 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: namespace-runner
+  namespace: infra
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups: ["extensions"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: gitlab-runner-infra
+  namespace: infra
+subjects:
+- kind: ServiceAccount
+  name: gitlab-gitlab-runner
+  namespace: gitlab
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: namespace-runner
+  apiGroup: rbac.authorization.k8s.io
