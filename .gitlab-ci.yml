@@ -43,3 +43,4 @@ deploy:
     entrypoint: ['']
   script:
   - kubectl apply -f k8s/deployment.yaml
+  - kubectl -n infra delete pod -l app=dns-updater
