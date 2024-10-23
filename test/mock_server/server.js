@@ -20,16 +20,19 @@ const mockFn = (req, res) => {
 
     else {
         let err = false;
-        if (req.method !== "PUT") { err = true; console.log("Error! Wrong method: " + req.method); }
-        if (req.url !== "/v1/domains/organiccode.net/records/A/%40") {
+
+        url = "/client/v4/zones/9cc8be068cf964ace2204d3d2c051e5d/dns_records/ad55d954c95b07c7d5b16552b7ea6758"
+
+        if (req.method !== "PATCH") { err = true; console.log("Error! Wrong method: " + req.method); }
+        if (req.url !== url) {
             err = 1;
             console.log("URL does not match expected: " + req.url);
         }
-        if (req.get("Authorization") !== "sso-key test token") {
+        if (req.get("Authorization") !== "Bearer test token") {
             err = true;
             console.log("wrong auth token: " + req.get("Authorization"));
         }
-        if (req.body[0] && req.body[0].data !== "127.0.0.1") {
+        if (req.body[0] && req.body[0].content !== "127.0.0.1") {
             err = true;
             console.log("wrong request body: " + req.body[0]);
         }

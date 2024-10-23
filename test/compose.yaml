@@ -3,7 +3,7 @@ services:
   dns_updater:
     attach: false
     environment:
-      - GO_DADDY_API_KEY=test token
+      - CLOUDFLARE_API_KEY=test token
     build:
       context: mock_server/certs/
       dockerfile_inline: |

@@ -5,7 +5,7 @@ import time
 import os
 from stun_info import get_external_ip
 
-GO_DADDY_API_KEY = "GO_DADDY_API_KEY"
+GO_DADDY_API_KEY = "CLOUDFLARE_API_KEY"
 
 logging.basicConfig(level="INFO",
                     format='%(asctime)s %(levelname)-4s %(message)s')
@@ -34,12 +34,15 @@ def write_ip_to_file(file_name, ip_address):
 
 def update_dns_record(ip_address):
     logging.info("Updating DNS record")
-    url = "https://api.godaddy.com/v1/domains/organiccode.net/records/A/%40"
+    dns_record_id = "ad55d954c95b07c7d5b16552b7ea6758"
+    zone_id = "9cc8be068cf964ace2204d3d2c051e5d"
+
+    url = "https://api.cloudflare.com/client/v4/zones/{zone_id}/dns_records/{dns_record_id}"
     headers = {"accept": "application/json", "Content-Type": "application/json",
-               "Authorization": "sso-key " + os.environ[GO_DADDY_API_KEY]}
-    body = json.dumps([{"data": ip_address, "ttl": 1800}], indent=0)
-    response = requests.put(url, data=body, headers=headers)
-    logging.info("PUT request to godaddy returned with status {}".format(response.status_code))
+               "Authorization": "Bearer " + os.environ[GO_DADDY_API_KEY]}
+    body = json.dumps([{"content": ip_address, "ttl": 1800, "proxied": False, "type": "A"}], indent=0)
+    response = requests.patch(url, data=body, headers=headers)
+    logging.info("PATCH request to godaddy returned with status {}".format(response.status_code))
 
 
 if __name__ == "__main__":

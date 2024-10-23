@@ -11,7 +11,7 @@ docker compose build ./src
 ## Environment variables
 
 * `GO_DADDY_API_KEY`
-    Set with `k -n infra create secret generic godaddy-api-secret --from-literal=apiToken=<secret>`
+    Set with `k -n infra create secret generic cloudflare-api-secret --from-literal=apiToken=<secret>`
 
 ## Testing
 
